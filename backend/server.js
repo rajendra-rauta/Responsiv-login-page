@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import path from 'path'
 import mongoose from 'mongoose'
+import { OAuth2Client } from 'google-auth-library'
 
 const app = express()
 const db = mongoose.connect
@@ -20,11 +21,6 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '../') })
 })
 
-mongoose.connect(process.env.DB_URL)
-//db.on('error', (error) => { console.log(error) })
-//db.once('open', () => { console.log("Database Connected") })
-
-const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client();
 async function verify() {
   const ticket = await client.verifyIdToken({
@@ -39,6 +35,10 @@ async function verify() {
   // const domain = payload['hd'];
 }
 verify().catch(console.error);
+
+mongoose.connect(process.env.DB_URL)
+//db.on('error', (error) => { console.log(error) })
+//db.once('open', () => { console.log("Database Connected") })
 
 app.listen(port, () => {
   console.log(`Server listening on ${port}`)

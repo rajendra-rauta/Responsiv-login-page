@@ -2,8 +2,8 @@
   "name": "responsiv-login-page",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "script.js",
+  "type": "module",
   "scripts": {
     "start": "server.js",
     "dev": "nodemon server.js"
